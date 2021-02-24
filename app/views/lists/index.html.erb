@@ -1,0 +1,16 @@
+
+<div class="container mt-5">
+  <h1>Lists</h1>
+  <div class="row">
+    <div class="col-4">
+      <% @lists.each do |list| %>
+        <%= link_to (list) do %>
+          <div class="card-category d-flex mt-2" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg)">
+            <%= list.name %>
+          </div>
+        <% end %>
+      <% end %>
+      <%= link_to 'Add a list', new_list_path %>
+    </div>
+  </div>
+</div>
