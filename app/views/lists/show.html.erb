@@ -2,9 +2,29 @@
   <h1><%= @list.name %></h1>
   <% @list.bookmarks.each do |bookmark| %>
     <h5><%= bookmark.comment %>
+      <%= bookmark.movie.title %>
     <%= link_to 'delete', bookmark_path, method: 'delete' %>
     </h5>
   <% end %> <br>
-  <%= link_to 'create a bookmark', new_list_bookmark_path(@list) %>
+
+
+  <%= simple_form_for [@list, @bookmark] do |f| %>
+  <%= f.input :comment %>
+  <%= f.association :movie, input_html: { class: 'select2' } %>
+  <%= f.submit %>
+  <% end %>
+
+
+  <%= simple_form_for [@list, @review] do |f| %>
+      <%= f.input :comment %>
+      <% (0..5).each do |rates| %>
+      <%= f.radio_button :rating, rates, class: "star", check_box: rates == (check_box)? true : false %>
+      <% end %>
+      <%#= f.select :rating, collection: Review::RATING %>
+  <% end %>
+
+
   <%= link_to 'back', lists_path %>
+
+
 </div>
