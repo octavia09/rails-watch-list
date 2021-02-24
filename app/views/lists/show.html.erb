@@ -17,14 +17,19 @@
 
   <%= simple_form_for [@list, @review] do |f| %>
       <%= f.input :comment %>
-      <% (0..5).each do |rates| %>
-      <%= f.radio_button :rating, rates, class: "star", check_box: rates == (check_box)? true : false %>
-      <% end %>
       <%#= f.select :rating, collection: Review::RATING %>
+      <fieldset class="rating">
+        <legend>Please rate:</legend>
+        <%=f.radio_button :rating, 5, :id => "star5" %><label for="star5" title="Excellent!">5 Stars</label>
+        <%=f.radio_button :rating, 4, :id => "star4" %> <label for="star5" title="Good!">4 Stars</label>
+        <%=f.radio_button :rating, 3, :id => "star3" %> <label for="star3" title="Average!">5 Stars</label>
+        <%=f.radio_button :rating, 2, :id => "star2" %> <label for="star5" title="Poor!">2 Stars</label>
+        <%=f.radio_button :rating, 1, :id => "star1" %> <label for="star1" title="Very Poor!">1 Stars</label>
+      </fieldset>
   <% end %>
 
 
-  <%= link_to 'back', lists_path %>
+  <%= link_to 'back', lists_path, class: "btn btn-primary" %>
 
 
 </div>
