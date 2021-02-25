@@ -1,18 +1,27 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1542204165-65bf26472b9b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80);">
-  <div class="container">
-    <h1 class="text-center"><%= @list.name %></h1>
+
+<% if @list.photo.attached? %>
+  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path @list.photo.key, height: 300, crop: :fill %>);">
+<% else %>
+  <div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1542204165-65bf26472b9b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80');">
+<% end %>
+    <div class="container">
+      <h1 class="text-center"><%= @list.name %></h1>
+    </div>
   </div>
-</div>
 
 <div class="container mt-5 mb-5">
   <div class="row justify-content-between">
     <% @list.bookmarks.each do |bookmark| %>
       <div class="col-4">
         <div class="card " style="width: 18rem;">
-          <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80" alt="">
+          <% if @list.photo.attached? %>
+            <%= cl_image_tag @list.photo.key, height: 300, width: 400, crop: :fill %>
+          <% else %>
+            <img src="https://images.unsplash.com/photo-1542204165-65bf26472b9b?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80" alt="">
+          <% end %>
         </div>
         <div class="card-body">
-          <h5 class="card-title"><%= bookmark.movie.title%> • <%= @review.rating %></h5>
+          <h5 class="card-title"><%= bookmark.movie.title.capitalize %> • <%= @review.rating %></h5>
           <p class="card-text"><%= bookmark.comment %></p>
           <%= link_to 'delete', bookmark_path(bookmark), method: 'delete', class: "delete_link" %>
         </div>
@@ -70,7 +79,7 @@
   </div>
 
 
-  <%= link_to 'back', lists_path, class: "btn btn-primary mt-3" %>
+  <%= link_to 'back', root_path, class: "btn btn-primary mt-3" %>
 
 
 </div>
